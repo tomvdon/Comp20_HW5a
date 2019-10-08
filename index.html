@@ -28,9 +28,9 @@
 			else
 				return false
 		}
-		function showFactors(array)
+		function showFactors(array, id)
 		{
-			document.getElementById("factors_display_box").innerHTML += array
+			document.getElementById(id).innerHTML = array
 		}
 		function addFactors(array)
 		{
@@ -60,11 +60,14 @@
 			result = false
 			factors_a = getFactors(num_a)
 			factors_b = getFactors(num_b)
-			showFactors(factors_a)
-			showFactors(factors_b)
-			sum_a = addFactors(factors_a)
-			sum_b = addFactors(factors_b)
-			if (sum_a == sum_b)
+			showFactors(factors_a, "factors_display_box_a")
+			showFactors(factors_b, "factors_display_box_b")
+			// We could do this in addFactors but a number is always a factor of itself
+			sum_a = addFactors(factors_a) - num_a 
+			sum_b = addFactors(factors_b) - num_b
+			document.getElementById("sum_display_box_a").innerHTML = sum_a
+			document.getElementById("sum_display_box_b").innerHTML = sum_b
+			if (sum_a == num_b && sum_b == num_a)
 			{
 				result_text = "Numbers ARE Amicable!"
 				result = true
@@ -96,10 +99,10 @@
 
 		function showFactors_testing()
 		{
-			showFactors([1,2,3,4,5,6,7,8])
-			showFactors(['apple','banna','peach',-1,20,'cat',99])
-			showFactors([])
-			showFactors(['Pass'])
+			showFactors([1,2,3,4,5,6,7,8], "test")
+			showFactors(['apple','banna','peach',-1,20,'cat',99],"test")
+			showFactors([],"test")
+			showFactors(['Pass'],"test")
 		}
 		function addFactors_testing()
 		{
@@ -127,11 +130,31 @@
 			<input type="text" name="txt_num_b" id="txt_num_b">	
 			<input type="button" name="btn_submit" id="btn_submit" value ="Calc!" onclick="getValues()">	
 		</form>
-		<div id="input_display_box">
+		<div>
+			<p> Input: </p>
+			<div id="input_display_box">
+			</div>
 		</div>
-		<div id="factors_display_box">
+		<div>
+			<p> Factors:</p>
+			<div id="factors_display_box_a">
+			</div>
+			<div id="factors_display_box_b">
+			</div>
 		</div>
-		<div id="amicable_display_box">
+		<div>
+			<p> Sums:</p>
+			<div id="sum_display_box_a">
+			</div>
+			<div id="sum_display_box_b">
+			</div>
+		</div>
+		<div>
+			<p> Amicable:</p>
+			<div id="amicable_display_box">
+			</div>
+		</div>
+		<div id="test">
 		</div>
 	</div>
 	<script type="text/javascript">
