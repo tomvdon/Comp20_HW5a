@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Amicable Numbers </title>
+	<style type="text/css">
+		div.wrapper{
+			margin: auto;
+			width: 50%;
+			text-align: center;
+		}
+		div.display_parent{
+
+		}
+		
+	</style>
+	<script type="text/javascript">
+		function getValues()
+		{
+			num_a = document.getElementById("txt_num_a").value
+			num_b = document.getElementById("txt_num_b").value
+			document.getElementById("input_display_box").innerHTML = num_a + " "+ num_b
+			isAmicable(num_a, num_b)
+		}
+		function isFactor(number, test_number)
+		{
+			if (number % test_number == 0)
+				return true
+			else
+				return false
+		}
+		function showFactors(array)
+		{
+			document.getElementById("factors_display_box").innerHTML += array
+		}
+		function addFactors(array)
+		{
+			total = 0
+			for (var i = 0; i < array.length; i++)
+			{
+				total += array[i]
+			}
+			return total
+		}
+		function getFactors(number)
+		{
+			factors=[]
+			for (var i=1; i < Math.sqrt(number); i++)
+				if (isFactor(number, i))
+				{
+					factors.push(i)
+					factors.push(number/i)
+				}
+			factors.sort(function(a, b){return a - b})
+			return factors
+		}
+
+		function isAmicable(num_a, num_b)
+		{
+			result_text=""
+			result = false
+			factors_a = getFactors(num_a)
+			factors_b = getFactors(num_b)
+			showFactors(factors_a)
+			showFactors(factors_b)
+			sum_a = addFactors(factors_a)
+			sum_b = addFactors(factors_b)
+			if (sum_a == sum_b)
+			{
+				result_text = "Numbers ARE Amicable!"
+				result = true
+			}
+			else
+			{
+				result_text = "Numbers are NOT Amicable"
+			}
+			document.getElementById("amicable_display_box").innerHTML = result_text
+			return result
+		}
+		function isFactor_testing()
+		{
+			if (isFactor(10,5))
+				console.log("Pass 1")
+			if (!isFactor(10,3))
+				console.log("Pass 2")
+			if (!isFactor(6,24))
+				console.log("Pass 3")
+			if (isFactor(2,1))
+				console.log("Pass 4")
+			if (isFactor(0,49))
+				console.log("Pass 5")
+			if (isFactor(7,7))
+				console.log("Pass 6")
+			if (!isFactor(3,0))
+				console.log("Pass 7")
+		}
+
+		function showFactors_testing()
+		{
+			showFactors([1,2,3,4,5,6,7,8])
+			showFactors(['apple','banna','peach',-1,20,'cat',99])
+			showFactors([])
+			showFactors(['Pass'])
+		}
+		function addFactors_testing()
+		{
+			if (addFactors([1,1]) == 2)
+				console.log("Pass 1")
+			if (addFactors([0,1,2,3,4,5,6,7,8,9,10]) == 55)
+				console.log("Pass 2")
+			if (addFactors([-5,10]) == 5)
+				console.log("Pass 3")
+			if (addFactors([-1,-6]) == -7)
+				console.log("Pass 4")
+			if (addFactors([0]) == 0 )
+				console.log("Pass 5")
+			if (addFactors(['foo','bar']) == '0foobar')
+				console.log("Pass 6")
+			if (addFactors([1/2,1/4]) == 3/4)
+				console.log("Pass 7")
+		}
+	</script>
+</head>
+<body>
+	<div class="wrapper">
+		<form>
+			<input type="text" name="txt_num_a" id="txt_num_a">
+			<input type="text" name="txt_num_b" id="txt_num_b">	
+			<input type="button" name="btn_submit" id="btn_submit" value ="Calc!" onclick="getValues()">	
+		</form>
+		<div id="input_display_box">
+		</div>
+		<div id="factors_display_box">
+		</div>
+		<div id="amicable_display_box">
+		</div>
+	</div>
+	<script type="text/javascript">
+		//isFactor_testing()
+		//showFactors_testing()
+		//addFactors_testing()
+	</script>
+
+</body>
+</html>
